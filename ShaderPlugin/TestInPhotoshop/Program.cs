@@ -114,10 +114,10 @@ namespace TestInPhotoshop
                 string[] PhotoshopVersions = PhotoshopRecords.GetSubKeyNames();
                 foreach (string PhotoshopVersion in PhotoshopVersions)
                 {
-                    RegistryKey PluginsRecord = PhotoshopRecords.OpenSubKey(PhotoshopVersion + "\\PluginPath");
+                    RegistryKey PluginsRecord = PhotoshopRecords.OpenSubKey(PhotoshopVersion);
                     if (PluginsRecord != null)
                     {
-                        string PluginsPath = (string)PluginsRecord.GetValue(string.Empty);
+                        string PluginsPath = (string)PluginsRecord.GetValue("PluginPath");
                         if (Directory.Exists(PluginsPath))
                         {
                             PluginsFolders.Add(PluginsPath);
