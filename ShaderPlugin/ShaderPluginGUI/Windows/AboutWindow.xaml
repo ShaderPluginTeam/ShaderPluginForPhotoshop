@@ -1,0 +1,48 @@
+﻿<local:DarkWindow x:Class="ShaderPluginGUI.AboutWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:ShaderPluginGUI"
+                  mc:Ignorable="d"
+                  MinWidth="350" SizeToContent="WidthAndHeight" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+                  Title="About Shader Plugin" Icon="/Resources/WindowIcon.ico"
+                  Background="{DynamicResource WindowBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}"
+                  KeyDown="Window_KeyDown">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Theme.xaml"/>
+                <ResourceDictionary Source="/Styles/WindowStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/HyperlinkStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="#252525" BorderThickness="0, 1, 0, 0">
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="textAbout" FontSize="10pt" TextAlignment="Center" TextWrapping="Wrap" Margin="10, 10, 10, 0">
+                Shader Plugin (for Photoshop) v.<Run x:Name="runVersion" d:Text="1.0"/><LineBreak/>
+                © 2020 - 2025 Shader Plugin.<LineBreak/>
+                <LineBreak/>
+                Authors:<LineBreak/>
+                Alexandr Zelensky<LineBreak/>
+                Vladimir Rymkevich<LineBreak/>
+                <LineBreak/>
+                Project is OpenSource<LineBreak/>
+                License: MIT<LineBreak/>
+                <LineBreak/>
+                <Span xml:space="preserve">Support us on: <Hyperlink NavigateUri="https://hellmapper.itch.io/shader-plugin-for-photoshop"
+                                                             RequestNavigate="Hyperlink_RequestNavigate">Itch.io</Hyperlink></Span><LineBreak/>
+                <Span xml:space="preserve">Our <Hyperlink NavigateUri="https://discord.gg/9YVz3RednF"
+                                                          RequestNavigate="Hyperlink_RequestNavigate">Discord</Hyperlink> channel (support)</Span><LineBreak/>
+                <Span xml:space="preserve">Source code: <Hyperlink NavigateUri="https://github.com/ShaderPluginTeam/ShaderPluginForPhotoshop"
+                                                                   RequestNavigate="Hyperlink_RequestNavigate">GitHub</Hyperlink> repo</Span>
+            </TextBlock>
+            <Button Style="{StaticResource Button.RoundCorner}" Width="80" Height="30" Margin="0, 16, 0, 16"
+                    Content="OK" IsDefault="True"
+                    Click="ButtonOK_Click"/>
+        </StackPanel>
+    </Border>
+</local:DarkWindow>

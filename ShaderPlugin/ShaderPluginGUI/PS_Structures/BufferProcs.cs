@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PS_Structures
+namespace ShaderPlugin.PS_Structures
 {
     public delegate Int16 AllocateBufferProc(int size, IntPtr bufferID);
     public delegate IntPtr LockBufferProc(IntPtr bufferID, Boolean moveHigh);

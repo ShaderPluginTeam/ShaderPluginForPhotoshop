@@ -41,11 +41,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\WindowIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=6.3.0.90, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>..\packages\AvalonEdit.6.3.0.90\lib\net462\ICSharpCode.AvalonEdit.dll</HintPath>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=6.3.1.120, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.6.3.1.120\lib\net462\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.3.3\lib\net20\OpenTK.dll</HintPath>
@@ -72,18 +72,48 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeFolding.cs" />
-    <Compile Include="ColorRGBA.cs" />
-    <Compile Include="ErrorLineBGRenderer.cs" />
-    <Compile Include="ImageDump.cs" />
-    <Compile Include="ErrorWindow.xaml.cs">
+    <Compile Include="Controls\AvalonEditExtensions\Highlight\ErrorLineBGRenderer.cs" />
+    <Compile Include="Controls\AvalonEditExtensions\Folding\FoldingExtension.cs" />
+    <Compile Include="Controls\AvalonEditExtensions\Folding\GLSLFoldingStrategy.cs" />
+    <Compile Include="Controls\IconPresenter.xaml.cs">
+      <DependentUpon>IconPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PixelInfoPopup.xaml.cs">
+      <DependentUpon>PixelInfoPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\ColorRGBA.cs" />
+    <Compile Include="Controls\BufferConfigControl.xaml.cs">
+      <DependentUpon>BufferConfigControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ShaderPluginGLControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Defenitions\Defenitions.cs" />
+    <Compile Include="Engine\RenderLoop.cs" />
+    <Compile Include="Defenitions\Enums.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Styles\CommandBehavior\MouseDownBehaviour.cs" />
+    <Compile Include="Styles\CommandBehavior\MouseUpBehaviour.cs" />
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DarkWindow.cs" />
+    <Compile Include="Windows\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PS_Structures\ColorServicesInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="ShaderXml.cs" />
-    <Compile Include="Engine.cs" />
-    <Compile Include="GLPictureBox.cs" />
+    <Compile Include="Engine\ShaderStateXML.cs" />
+    <Compile Include="Engine\ShaderPluginEngine.cs" />
+    <Compile Include="Windows\AvalonEditExtensions\GoToLineWindow.xaml.cs">
+      <DependentUpon>GoToLineWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow_GLControl.cs" />
     <Compile Include="PS_Structures\BigDocumentStruct.cs" />
     <Compile Include="PS_Structures\BufferProcs.cs" />
     <Compile Include="PS_Structures\FilterColor.cs" />
@@ -96,11 +126,42 @@
     <Compile Include="PS_Structures\PSRGBColor.cs" />
     <Compile Include="PS_Structures\VPoint.cs" />
     <Compile Include="PS_Structures\VRect.cs" />
-    <Compile Include="Shader.cs" />
-    <Compile Include="SplashWindow.xaml.cs">
-      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    <Compile Include="Engine\ShaderProgram.cs" />
+    <Compile Include="Engine\Extensions\GLExtensions.cs" />
+    <Compile Include="Engine\Extensions\TexFormatConverter.cs" />
+    <Compile Include="Windows\SystemInfoWindow.xaml.cs">
+      <DependentUpon>SystemInfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TexFormatConverter.cs" />
+    <Compile Include="Windows\WindowCommands.cs" />
+    <Compile Include="Windows\WindowSystemMenu.cs" />
+    <Page Include="Controls\BufferConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IconPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PixelInfoPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ContextMenuStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\HyperlinkStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\AvalonEditStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ComboBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\PixelInfoPopupStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,19 +194,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Styles\ToggleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ToolTipStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="MainWindow.xaml.cs">
+    <Page Include="Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AvalonEditExtensions\GoToLineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ErrorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SplashWindow.xaml">
+    <Page Include="Windows\ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,10 +231,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\DarkTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -169,26 +246,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\SystemInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Controls\ShaderPluginGLControl.resx">
+      <DependentUpon>ShaderPluginGLControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="OpenTK.dll.config" />
@@ -198,30 +277,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Resources\glslHightlight.xshd" />
-    <None Include="Resources\ConvertImageFomat_VS.glsl" />
-    <None Include="Resources\ConvertImageFomat_FS.glsl" />
-    <None Include="Resources\EditBufferA_FS.glsl" />
-    <None Include="Resources\EditBufferB_FS.glsl" />
-    <None Include="Resources\EditBufferC_FS.glsl" />
-    <None Include="Resources\EditBufferD_FS.glsl" />
-    <None Include="Resources\Edit_VS.glsl" />
-    <None Include="Resources\EditImage_FS.glsl" />
-    <None Include="Resources\ViewGrid_FS.glsl" />
-    <None Include="Resources\ViewLine_VS.glsl" />
-    <None Include="Resources\ViewLine_FS.glsl" />
-    <None Include="Resources\View_VS.glsl" />
-    <None Include="Resources\View_FS.glsl" />
-    <Resource Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\New.png" />
-    <Resource Include="Resources\Icons\Open.png" />
-    <Resource Include="Resources\Icons\Save.png" />
-    <Resource Include="Resources\Icons\Redo.png" />
-    <Resource Include="Resources\Icons\Undo.png" />
-    <Resource Include="Resources\Icons\Copy.png" />
-    <Resource Include="Resources\Icons\Paste.png" />
-    <Resource Include="Resources\Icons\Help.png" />
+    <None Include="Resources\Shaders\CommonCode.glsl" />
+    <None Include="Resources\Shaders\ConvertImageFomat_VS.glsl" />
+    <None Include="Resources\Shaders\ConvertImageFomat_FS.glsl" />
+    <None Include="Resources\Shaders\Edit_FS.glsl" />
+    <None Include="Resources\Shaders\Edit_VS.glsl" />
+    <None Include="Resources\Shaders\EditNew_FS.glsl" />
+    <None Include="Resources\Shaders\ViewGrid_FS.glsl" />
+    <None Include="Resources\Shaders\ViewLine_VS.glsl" />
+    <None Include="Resources\Shaders\ViewLine_FS.glsl" />
+    <None Include="Resources\Shaders\View_VS.glsl" />
+    <None Include="Resources\Shaders\View_FS.glsl" />
+    <Resource Include="Resources\WindowIcon.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

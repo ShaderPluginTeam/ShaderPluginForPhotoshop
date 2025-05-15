@@ -1,11 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178
+VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CLRProxy", "CLRProxy\CLRProxy.vcxproj", "{53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShaderPlugin", "ShaderPlugin\win\ShaderPlugin.vcxproj", "{98E5441D-1C90-48B6-975D-353732CE62AF}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderPluginGUI", "ShaderPluginGUI\ShaderPluginGUI.csproj", "{A35D2E94-C871-4627-88E5-2A15A3EDD9B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestInPhotoshop", "TestInPhotoshop\TestInPhotoshop.csproj", "{CACB429B-9631-45AA-BA84-0F106E9244AA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5} = {53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5}
+		{98E5441D-1C90-48B6-975D-353732CE62AF} = {98E5441D-1C90-48B6-975D-353732CE62AF}
+		{A35D2E94-C871-4627-88E5-2A15A3EDD9B8} = {A35D2E94-C871-4627-88E5-2A15A3EDD9B8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWithoutPhotoshop", "TestWithoutPhotoshop\TestWithoutPhotoshop.csproj", "{FB3AF1ED-470B-4E39-B345-B84AD49E2972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +28,22 @@ Global
 		{53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5}.Debug|x64.Build.0 = Debug|x64
 		{53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5}.Release|x64.ActiveCfg = Release|x64
 		{53F6E5F8-19E4-4FED-BC39-3AE45D5B6AD5}.Release|x64.Build.0 = Release|x64
+		{98E5441D-1C90-48B6-975D-353732CE62AF}.Debug|x64.ActiveCfg = Debug|x64
+		{98E5441D-1C90-48B6-975D-353732CE62AF}.Debug|x64.Build.0 = Debug|x64
+		{98E5441D-1C90-48B6-975D-353732CE62AF}.Release|x64.ActiveCfg = Release|x64
+		{98E5441D-1C90-48B6-975D-353732CE62AF}.Release|x64.Build.0 = Release|x64
 		{A35D2E94-C871-4627-88E5-2A15A3EDD9B8}.Debug|x64.ActiveCfg = Debug|x64
 		{A35D2E94-C871-4627-88E5-2A15A3EDD9B8}.Debug|x64.Build.0 = Debug|x64
 		{A35D2E94-C871-4627-88E5-2A15A3EDD9B8}.Release|x64.ActiveCfg = Release|x64
 		{A35D2E94-C871-4627-88E5-2A15A3EDD9B8}.Release|x64.Build.0 = Release|x64
+		{CACB429B-9631-45AA-BA84-0F106E9244AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CACB429B-9631-45AA-BA84-0F106E9244AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{CACB429B-9631-45AA-BA84-0F106E9244AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{CACB429B-9631-45AA-BA84-0F106E9244AA}.Release|x64.Build.0 = Release|Any CPU
+		{FB3AF1ED-470B-4E39-B345-B84AD49E2972}.Debug|x64.ActiveCfg = Debug|x64
+		{FB3AF1ED-470B-4E39-B345-B84AD49E2972}.Debug|x64.Build.0 = Debug|x64
+		{FB3AF1ED-470B-4E39-B345-B84AD49E2972}.Release|x64.ActiveCfg = Release|x64
+		{FB3AF1ED-470B-4E39-B345-B84AD49E2972}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

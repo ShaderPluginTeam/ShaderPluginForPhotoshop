@@ -1,0 +1,471 @@
+﻿<local:DarkWindow x:Class="ShaderPluginGUI.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:ShaderPluginGUI"
+                  xmlns:controls="clr-namespace:ShaderPluginGUI.Controls"
+                  xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                  xmlns:System="clr-namespace:System;assembly=mscorlib"
+                  xmlns:cm="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
+                  mc:Ignorable="d" Width="1200" Height="750" MinWidth="480" MinHeight="320" WindowStartupLocation="CenterOwner"
+                  Title="Shader Plugin" Background="{DynamicResource BackgroundBrushNormal}" Icon="/Resources/WindowIcon.ico" ShowInTaskbar="False"
+                  Loaded="Window_Loaded" AllowsTransparency="False"
+                  StateChanged="Window_StateChanged"
+                  SizeChanged="Window_SizeChanged"
+                  Closing="Window_Closing">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Theme.xaml"/>
+                <ResourceDictionary Source="/Styles/AvalonEditStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/GroupBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/LabelStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/PixelInfoPopupStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/TabControlStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ToggleButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ToolBarStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ToolTipStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/Icons.xaml"/>
+                <ResourceDictionary Source="/Styles/WindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="Button_New_Click" />
+        <CommandBinding Command="Open" Executed="Button_Open_Click" />
+        <CommandBinding Command="SaveAs" Executed="Button_Save_Click" />
+        <CommandBinding Command="local:MainWindow.CopyImageCommand" Executed="Button_Copy_Click" />
+        <CommandBinding Command="local:MainWindow.PasteImageCommand" Executed="Button_Paste_Click" />
+        <CommandBinding Command="local:MainWindow.SystemInfoCommand" Executed="Button_SystemInfo_Click" />
+        <CommandBinding Command="Help" Executed="Button_About_Click" />
+        <CommandBinding Command="local:MainWindow.ResetTimeCommand" Executed="ToggleButton_RenderLoop_ResetTime_Click" />
+        <CommandBinding Command="local:MainWindow.RenderLoopToggleCommand" Executed="ToggleButton_RenderLoop_Play_Click" />
+        <CommandBinding Command="local:MainWindow.CompileCommand" Executed="BtnCompile_Click" />
+        <CommandBinding Command="local:MainWindow.ApplyCommand" Executed="BtnApply_Click" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Command="New" Gesture="Ctrl+N"/>
+        <KeyBinding Command="Open" Gesture="Ctrl+O"/>
+        <KeyBinding Command="SaveAs" Gesture="Ctrl+S"/>
+        <KeyBinding Command="local:MainWindow.CopyImageCommand" Gesture="Ctrl+Shift+C"/>
+        <KeyBinding Command="local:MainWindow.PasteImageCommand" Gesture="Ctrl+Shift+V"/>
+        <KeyBinding Command="local:MainWindow.SystemInfoCommand" Gesture="Shift+F1"/>
+        <KeyBinding Command="Help" Gesture="F1"/>
+        <KeyBinding Command="local:MainWindow.ResetTimeCommand" Gesture="Ctrl+R"/>
+        <KeyBinding Command="local:MainWindow.RenderLoopToggleCommand" Gesture="Ctrl+P"/>
+        <KeyBinding Command="local:MainWindow.CompileCommand" Gesture="F5"/>
+        <KeyBinding Command="local:MainWindow.ApplyCommand" Gesture="Ctrl+Enter"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="{DynamicResource BorderBrushNormal}" BorderThickness="0,0,0,1" Height="Auto">
+            <ToolBar HorizontalAlignment="Stretch" DockPanel.Dock="Top" Grid.Row="0">
+                <Button Command="New" ToolTip="New shader   Ctrl+N" TabIndex="2">
+                    <controls:IconPresenter Icon="{StaticResource Icon.New}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Button Command="Open" ToolTip="Open shader   Ctrl+O" TabIndex="3">
+                    <controls:IconPresenter Icon="{StaticResource Icon.OpenFolder}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Button Command="SaveAs" ToolTip="Save as shader   Ctrl+S" TabIndex="4">
+                    <!--<controls:IconPresenter Icon="{StaticResource Icon.Save}" IconWidth="24" IconHeight="24"/>-->
+                    <controls:IconPresenter Icon="{StaticResource Icon.SaveAs}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Separator/>
+                <Button Command="Undo" ToolTip="Undo   Ctrl+Z" TabIndex="5">
+                    <controls:IconPresenter Icon="{StaticResource Icon.Undo}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Button Command="Redo" ToolTip="Redo   Ctrl+Y" TabIndex="6">
+                    <controls:IconPresenter Icon="{StaticResource Icon.Redo}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Separator/>
+                <Button Command="local:MainWindow.CopyImageCommand" ToolTip="Copy processed Image   Ctrl+Shift+C" TabIndex="7">
+                    <controls:IconPresenter Icon="{StaticResource Icon.Copy}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Button Command="local:MainWindow.PasteImageCommand" ToolTip="Paste Image (as Input)   Ctrl+Shift+V" TabIndex="8">
+                    <controls:IconPresenter Icon="{StaticResource Icon.Paste}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Separator/>
+                <Button Command="local:MainWindow.SystemInfoCommand" ToolTip="System Info   Shift+F1" TabIndex="9">
+                    <controls:IconPresenter Icon="{StaticResource Icon.Computer}" IconWidth="24" IconHeight="24"/>
+                </Button>
+                <Button Command="Help" ToolTip="About...   F1" TabIndex="10">
+                    <controls:IconPresenter Icon="{StaticResource Icon.QuestionMark}" IconWidth="24" IconHeight="24"/>
+                </Button>
+            </ToolBar>
+        </Border>
+
+        <WindowsFormsHost x:Name="GLControlHost" Grid.Row="1" Grid.Column="0" Background="#FF2D2D2D" SnapsToDevicePixels="True" Focusable="True">
+            <controls:ShaderPluginGLControl x:Name="glControl"
+                Load="GlControl_Load"
+                HandleDestroyed="GlControl_HandleDestroyed"
+                MouseDown="GlControl_MouseDown"
+                MouseUp="GlControl_MouseUp"
+                MouseMove="GlControl_MouseMove"
+                MouseWheel="GlControl_MouseWheel"
+                PreviewKeyDown="GlControl_PreviewKeyDown"
+                KeyDown="GlControl_KeyDown"
+                KeyUp="GlControl_KeyUp"
+                Resize="GlControl_Resize"
+                Paint="GlControl_Paint"/>
+        </WindowsFormsHost>
+
+        <controls:PixelInfoPopup x:Name="pixelInfoPopup"/>
+
+        <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="2"
+                      Background="{DynamicResource GridSplitBrush}"/>
+
+        <TabControl Name="tabControlMain" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" SelectedIndex="5" TabIndex="-4"
+                    SelectionChanged="TabControlMain_SelectionChanged">
+            <TabItem Name="tabItemCommon" Header="Common" ToolTip="Common code for include in shaders.">
+                <avalonEdit:TextEditor x:Name="textEditorCommonCode" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                       TextChanged="TextEditor_TextChanged"/>
+            </TabItem>
+            <TabItem Name="tabItemBufferA"  Header="Buffer A">
+                <TabControl Name="tabControlBufferA" SelectedIndex="1">
+                    <TabItem Header="Vertex Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferA_VS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Fragment Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferA_FS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Texture Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferA_Image" Header="Original Image" UseMipMaps="True" Margin="0, 5, 0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferA_BufferA" Header="Buffer A" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferA_BufferB" Header="Buffer B" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferA_BufferC" Header="Buffer C" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferA_BufferD" Header="Buffer D" UseMipMaps="False" Margin="0, 2.5, 0, 5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Name="tabItemBufferB"  Header="Buffer B">
+                <TabControl Name="tabControlBufferB" SelectedIndex="1">
+                    <TabItem Header="Vertex Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferB_VS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Fragment Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferB_FS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Texture Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferB_Image" Header="Original Image" UseMipMaps="True" Margin="0, 5, 0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferB_BufferA" Header="Buffer A" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferB_BufferB" Header="Buffer B" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferB_BufferC" Header="Buffer C" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferB_BufferD" Header="Buffer D" UseMipMaps="False" Margin="0, 2.5, 0, 5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Name="tabItemBufferC" Header="Buffer C">
+                <TabControl Name="tabControlBufferC" SelectedIndex="1">
+                    <TabItem Header="Vertex Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferC_VS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Fragment Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferC_FS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Texture Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferC_Image" Header="Original Image" UseMipMaps="True" Margin="0, 5, 0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferC_BufferA" Header="Buffer A" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferC_BufferB" Header="Buffer B" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferC_BufferC" Header="Buffer C" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferC_BufferD" Header="Buffer D" UseMipMaps="False" Margin="0, 2.5, 0, 5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Name="tabItemBufferD" Header="Buffer D">
+                <TabControl Name="tabControlBufferD" SelectedIndex="1">
+                    <TabItem Header="Vertex Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferD_VS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Fragment Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorBufferD_FS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Texture Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferD_Image" Header="Original Image" UseMipMaps="True" Margin="0, 5, 0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferD_BufferA" Header="Buffer A" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferD_BufferB" Header="Buffer B" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferD_BufferC" Header="Buffer C" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_BufferD_BufferD" Header="Buffer D" UseMipMaps="False" Margin="0, 2.5, 0, 5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Name="tabItemImage" Header="Image">
+                <TabControl Name="tabControlImage" SelectedIndex="1">
+                    <TabItem Header="Vertex Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorImage_VS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Fragment Shader">
+                        <avalonEdit:TextEditor x:Name="textEditorImage_FS" ContextMenu="{StaticResource ContextMenu.Text.ShaderEditor}"
+                                               TextChanged="TextEditor_TextChanged"/>
+                    </TabItem>
+                    <TabItem Header="Texture Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel Orientation="Vertical">
+                                <controls:BufferConfigControl x:Name="bufferConfig_Image_Image" Header="Original Image" UseMipMaps="True" Margin="0, 5, 0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_Image_BufferA" Header="Buffer A" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_Image_BufferB" Header="Buffer B" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_Image_BufferC" Header="Buffer C" UseMipMaps="False" Margin="0, 2.5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                                <controls:BufferConfigControl x:Name="bufferConfig_Image_BufferD" Header="Buffer D" UseMipMaps="False" Margin="0, 2.5, 0, 5"
+                                                              TextureParametersChanged="ComboBox_TextureParameters_Changed"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Name="tabItemSettings" Header="Settings">
+                <TabControl Name="tabSettings">
+                    <TabItem Header="Shader Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5, 0">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="8, 8, 8, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="28"/>
+                                        <RowDefinition Height="28"/>
+                                        <RowDefinition Height="28"/>
+                                        <RowDefinition Height="28"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Additional Buffers:</Label>
+                                    <ComboBox Name="comboBox_Image_Buffers" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Height="24"
+                                              ToolTip="Allow to add additional FrameBuffers for process images in many steps in complex effects."
+                                              SelectionChanged="ComboBox_Image_Buffers_SelectionChanged"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Use MipMaps:</Label>
+                                    <CheckBox Name="checkBox_UseMipMaps" Grid.Row="1" Grid.Column="2" IsChecked="False"
+                                              ToolTip="Allow to Generate MipMaps for Original image and Buffers.&#10;Can make small zoomed textures more smooth in preview.&#10;Redraw every tick!"
+                                              Checked="CheckBox_UseMipMaps_CheckStateChanged"
+                                              Unchecked="CheckBox_UseMipMaps_CheckStateChanged"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Auto-compile shader after loading:</Label>
+                                    <CheckBox Name="checkBox_AutoCompileAfterLoading" Grid.Row="2" Grid.Column="2" IsChecked="True"
+                                              ToolTip="Allow to Disable auto-compilation for complex effects."/>
+
+                                    <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">Start Render Loop after loading:</Label>
+                                    <CheckBox Name="checkBox_StartRenderLoopAfterLoading" Grid.Row="3" Grid.Column="2" IsChecked="True"
+                                              ToolTip="Allow to Disable Render loop Auto-start.&#10;It's useful for complex effects when drawcall's takes big time."
+                                              Checked="CheckBox_StartRenderLoopAfterLoading_Checked"/>
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="Plugin Settings">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="24"/>
+                                    <RowDefinition Height="24"/>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="100*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right">View Mode:</Label>
+                                <ComboBox Name="comboBox_PreviewViewMode" Grid.Row="0" Grid.Column="2" Height="24"
+                                          ToolTip="Change preview mode, allow to see Texture per channel"
+                                          SelectionChanged="ComboBox_PreviewViewMode_SelectionChanged"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right">Magnification Filter:</Label>
+                                <ComboBox Name="comboBox_MagFilter" Grid.Row="1" Grid.Column="2" Height="24"
+                                          ToolTip="Preview Magnification Filter."
+                                          SelectionChanged="ComboBox_PreviewMagFilter_SelectionChanged"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Right">Minification Filter:</Label>
+                                <ComboBox Name="comboBox_MinFilter" Grid.Row="2" Grid.Column="2" Height="24"
+                                          ToolTip="Preview Minification Filter.&#10;Use MipMaps only if enabled in Shader Settings."
+                                          SelectionChanged="ComboBox_PreviewMinFilter_SelectionChanged"/>
+
+                                <CheckBox Name="checkBox_ForceCompileWhenApply" Grid.Row="3" Grid.Column="2"
+                                          ToolTip="Disable for time-based effects when need exacly last compiled (rendered) result."
+                                          Checked="CheckBox_ForceCompileWhenApply_Check" Unchecked="CheckBox_ForceCompileWhenApply_Check">
+                                    Force compile shaders when press "Apply"
+                                </CheckBox>
+
+                                <CheckBox Name="checkBox_sRGB" Grid.Row="4" Grid.Column="2"
+                                          ToolTip="Need to be checked for 32-bit Images.&#10;Also will change gamma of Background, but it's OK."
+                                          Checked="CheckBox_sRGB_Check" Unchecked="CheckBox_sRGB_Check">
+                                    Use sRGB Framebuffer (usefull for 32-bits images)
+                                </CheckBox>
+
+                                <Label Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Right">Preview Splitter Color:</Label>
+                                <Rectangle Name="rectangle_PreviewSplitterColor" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Width="24" Height="24" Fill="Gray"
+                                           MouseLeftButtonDown="Rectangle_PreviewSplitterColor_MouseLeftButtonDown"/>
+
+                                <Label Grid.Row="6" Grid.Column="0" HorizontalContentAlignment="Right">Background Color:</Label>
+                                <Rectangle Name="rectangle_BGColor" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Width="24" Height="24" Fill="Gray"
+                                           MouseLeftButtonDown="Rectangle_BGColor_MouseLeftButtonDown"/>
+
+                                <Label Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Right">Grid Colors:</Label>
+                                <StackPanel Grid.Row="7" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Rectangle Name="rectangle_GridColor1" Width="24" Height="24" Fill="Gray"
+                                               MouseLeftButtonDown="Rectangle_GridColor1_MouseLeftButtonDown"/>
+                                    <Rectangle Name="rectangle_GridColor2" Width="24" Height="24" Fill="Gray" Margin="6, 0, 0, 0"
+                                               MouseLeftButtonDown="Rectangle_GridColor2_MouseLeftButtonDown"/>
+                                </StackPanel>
+
+                                <Label Grid.Row="8" Grid.Column="0" HorizontalContentAlignment="Right">Grid Size:</Label>
+                                <TextBox x:Name="tbGridSize" Grid.Row="8" Grid.Column="2" Width="54" Height="24"
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
+                                         DataObject.Pasting="TbGridSize_Pasting"
+                                         PreviewTextInput="TbGridSize_PreviewTextInput" TextChanged="TbGridSize_TextChanged">20</TextBox>
+
+                                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0, 10">
+                                    <Button Style="{StaticResource Button.RoundCorner}" Margin="5, 8"
+                                            ToolTip="Save Plugin settings."
+                                            Click="BtnSaveSettings_Click">Save Settings</Button>
+                                    <Button Style="{StaticResource Button.RoundCorner}" Margin="5, 8"
+                                            ToolTip="Reset Plugin settings to default (don't save after reset)."
+                                            Click="BtnDefaultSettings_Click">Default Settings</Button>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Name="toggleButton_RenderLoop_ResetTime" Grid.Column="0" Margin="5, 5, 2.5, 5"
+                          Style="{StaticResource ToggleButton_RenderLoop_ResetTime}"
+                          ToolTip="Reset render time   Crtl+R"
+                          Click="ToggleButton_RenderLoop_ResetTime_Click">
+            </ToggleButton>
+            <ToggleButton x:Name="toggleButton_RenderLoop_Play" Grid.Column="1" Margin="2.5, 5, 5, 5"
+                          Style="{StaticResource ToggleButton_RenderLoop_Play}"
+                          ToolTip="Start/Stop realtime rendering   Crtl+P"
+                          Click="ToggleButton_RenderLoop_Play_Click">
+            </ToggleButton>
+            <TextBlock x:Name="textBlockRenderStats" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Margin="5, 0"
+                       FontFamily="Tahoma" FontSize="14" Foreground="WhiteSmoke"
+                       Text="Time: 0.00   FPS: 00.0"/>
+            <ToggleButton x:Name="toggleButton_PixelInfoPopup" Grid.Column="3" Margin="5"
+                              Style="{StaticResource ToggleButton_PixelInfoPopup}"
+                              ToolTip="Show Pixel Info popup when click and hold LMB.">
+            </ToggleButton>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Margin="4,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnCompile" Grid.Column="0" Width="75" Height="32" VerticalAlignment="Center" Margin="5"
+                    Style="{DynamicResource Button.PluginOK}" Foreground="WhiteSmoke"
+                    Content="Compile" ToolTip="Compile shader(s)   F5"
+                    Click="BtnCompile_Click"/>
+
+            <Button x:Name="btnApply" Grid.Column="2" Height="32" VerticalAlignment="Center" Width="75" Margin="5" TabIndex="0"
+                    Style="{DynamicResource Button.PluginOK}" Foreground="WhiteSmoke"
+                    Content="Apply" ToolTip="Apply shader to original image and close plugin window.   Ctrl+Enter"
+                    Click="BtnApply_Click"/>
+
+            <Button x:Name="btnCancel" Grid.Column="3" HorizontalAlignment="Right" Width="75" Height="32" VerticalAlignment="Center" Margin="5" TabIndex="1"
+                    Style="{DynamicResource Button.PluginCancel}" Foreground="WhiteSmoke"
+                    Content="Cancel" ToolTip="Close plugin window without any changes in original image.   Alt+F4"
+                    Click="BtnCancel_Click"/>
+        </Grid>
+
+        <StatusBar x:Name="statusBar" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                   Background="{DynamicResource BackgroundBrushSelected}" Foreground="WhiteSmoke"
+                   MouseDown="StatusBar_MouseDown">
+            <StatusBarItem HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" Margin="2, 0">
+                    <controls:IconPresenter x:Name="iconPresenterCompileStatus" d:Icon="{StaticResource Icon.StatusOKOutline}"
+                                            IconWidth="18" IconHeight="18"/>
+                    <TextBlock Name="statusBarError" TextTrimming="WordEllipsis" Margin="2, 0"
+                               d:Text="Compilation status"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</local:DarkWindow>

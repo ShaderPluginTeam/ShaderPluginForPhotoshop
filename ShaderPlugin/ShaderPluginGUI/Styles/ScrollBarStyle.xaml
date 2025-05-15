@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:ShaderPluginGUI">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/Theme.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -24,11 +24,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border 
-          Name="Border" Margin="1" CornerRadius="1" BorderThickness="1" Background="Transparent">
+                    <Border Name="Border" Margin="1" CornerRadius="1" BorderThickness="1" Background="Transparent">
                         <Path x:Name="Path" HorizontalAlignment="Center" VerticalAlignment="Center"
-Fill="{StaticResource ForegroundBrush}"
-Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"/>
+                              Fill="{StaticResource ForegroundBrush}"
+                              Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="true">
@@ -251,10 +250,10 @@ Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"/>
                                                 Grid.Column="0"/>
 
                         <ScrollBar Name="PART_VerticalScrollBar" Grid.Row="0" Grid.Column="1"
-Value="{TemplateBinding VerticalOffset}"
-Maximum="{TemplateBinding ScrollableHeight}"
-ViewportSize="{TemplateBinding ViewportHeight}"
-Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                   Value="{TemplateBinding VerticalOffset}"
+                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
                         <ScrollBar Name="PART_HorizontalScrollBar"
                             Orientation="Horizontal" Grid.Row="1" Grid.Column="0" 
                             Value="{TemplateBinding HorizontalOffset}"

@@ -3,12 +3,12 @@
                     xmlns:local="clr-namespace:ShaderPluginGUI">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/Theme.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="{x:Type TabControl}"  TargetType="{x:Type TabControl}">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
@@ -30,47 +30,47 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <TabPanel x:Name="HeaderPanel"
-                    Grid.Row="0"
-                    Panel.ZIndex="1" 
-                    IsItemsHost="True"
-                    KeyboardNavigation.TabIndex="1" Margin="-1,0,0,0">
+                                  Grid.Row="0"
+                                  Panel.ZIndex="1" 
+                                  IsItemsHost="True"
+                                  KeyboardNavigation.TabIndex="1" Margin="-1,0,0,0">
 
                         </TabPanel>
                         <Border x:Name="Border"
-                  Grid.Row="1" 
-                  BorderThickness="0,1,1,1"
-                  KeyboardNavigation.TabNavigation="Local"
-                  KeyboardNavigation.DirectionalNavigation="Contained"
-                  KeyboardNavigation.TabIndex="2" BorderBrush="{DynamicResource BorderBrushNormal}">
+                                Grid.Row="1" 
+                                BorderThickness="0,1,1,1"
+                                KeyboardNavigation.TabNavigation="Local"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabIndex="2" BorderBrush="{DynamicResource BorderBrushNormal}">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1"
                                    StartPoint="0.5,0">
-                                    <GradientStop Color="{DynamicResource ContentAreaColorLight}"
-                              Offset="0" />
-                                    <GradientStop Color="{DynamicResource ContentAreaColorDark}"
-                              Offset="1" />
+                                    <GradientStop Color="{DynamicResource ContentAreaColorLight}" Offset="0" />
+                                    <GradientStop Color="{DynamicResource ContentAreaColorDark}" Offset="1" />
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <ContentPresenter x:Name="PART_SelectedContentHost" 
-                              ContentSource="SelectedContent" />
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style  x:Key="{x:Type TabItem}"  TargetType="{x:Type TabItem}">
+        <Setter Property="FontFamily" Value="Tahoma"/>
+        <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid x:Name="Root" Height="{StaticResource ButtonDefSize}">
                         <Border x:Name="Border" BorderThickness="1,0,1,1" BorderBrush="{DynamicResource BorderBrushNormal}" Background="{DynamicResource PSTabItemNormalBrush}">
                             <ContentPresenter x:Name="ContentSite"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              ContentSource="Header"
-                              Margin="12,0,12,1"
-                              RecognizesAccessKey="True" />
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              ContentSource="Header"
+                                              Margin="12,0,12,1"
+                                              RecognizesAccessKey="True"/>
                         </Border>
                     </Grid>
 

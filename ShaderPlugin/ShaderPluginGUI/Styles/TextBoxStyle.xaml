@@ -3,32 +3,33 @@
                     xmlns:local="clr-namespace:ShaderPluginGUI">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml"/>
+        <ResourceDictionary Source="/Styles/ScrollBarStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="SnapsToDevicePixels"
-          Value="True" />
-        <Setter Property="OverridesDefaultStyle"
-          Value="True" />
-        <Setter Property="KeyboardNavigation.TabNavigation"
-          Value="None" />
-        <Setter Property="FocusVisualStyle"
-          Value="{x:Null}" />
-        <Setter Property="MinHeight"
-          Value="20" />
-        <Setter Property="AllowDrop"
-          Value="true" />
+        <!--<Setter Property="Background" Value="{StaticResource BackgroundBrushNormal}"/>-->
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
+        <Setter Property="FontFamily" Value="Tahoma"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="CaretBrush" Value="#FFD0D0D0"/>
+        <Setter Property="ContextMenu" Value="{StaticResource ContextMenu.Text.Default}"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border Name="Border"
-                CornerRadius="0"
-                BorderThickness="{TemplateBinding BorderThickness}" 
-                BorderBrush="{DynamicResource BorderBrushNormal}"
-                Background="{DynamicResource TextEditorBackgroundBrush}">
-                        <ScrollViewer Padding="{TemplateBinding Padding}"
-                        x:Name="PART_ContentHost" />
+                            CornerRadius="0"
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{DynamicResource BorderBrushNormal}"
+                            Background="{DynamicResource TextEditorBackgroundBrush}">
+                        <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -61,7 +61,27 @@ namespace ShaderPluginGUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GLSL_Hightlight {
+            get {
+                object obj = ResourceManager.GetObject("GLSL_Hightlight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Common used functions and logic can be defined there.
+        /// </summary>
+        public static string Shader_CommonCode {
+            get {
+                return ResourceManager.GetString("Shader_CommonCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #version 330
+        ///
         ///uniform sampler2D TextureUnit0;
         ///
         ///in vec2 f_UV;
@@ -82,12 +102,11 @@ namespace ShaderPluginGUI.Properties {
         ///        Depth16_PS_To_GL, // 256
         ///        Depth16_GL_To_PS  // 512
         ///		FlipUV_Y		  // 1024
-        ///*/
-        /// [rest of string was truncated]&quot;;.
+        ///*/ [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string ConvertImageFomat_FS {
+        public static string Shader_ConvertImageFomat_FS {
             get {
-                return ResourceManager.GetString("ConvertImageFomat_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_ConvertImageFomat_FS", resourceCulture);
             }
         }
         
@@ -109,246 +128,89 @@ namespace ShaderPluginGUI.Properties {
         ///		f_UV.y = 1.0 - f_UV.y;
         ///}.
         /// </summary>
-        public static string ConvertImageFomat_VS {
+        public static string Shader_ConvertImageFomat_VS {
             get {
-                return ResourceManager.GetString("ConvertImageFomat_VS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Copy {
-            get {
-                object obj = ResourceManager.GetObject("Copy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Shader_ConvertImageFomat_VS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
-        ///layout(location = 0) in vec2 v_UV;
         ///
-        ///out vec2 f_UV;
+        ///// Region Common code include
+        ///#extension GL_ARB_shading_language_include : enable
         ///
-        ///void main()
-        ///{
-        ///	f_UV = v_UV;
-        ///	vec2 Position = v_UV * 2.0 - 1.0;
-        ///	gl_Position = vec4(Position, 0.0, 1.0);
-        ///}.
+        ///#ifdef GL_ARB_shading_language_include
+        ///#include &lt;/common.glsl&gt;
+        ///#endif
+        ///// EndRegion Common code include
+        ///
+        ///// Region Uniforms
+        ///uniform sampler2D TextureUnit0; // Original Image
+        ///uniform sampler2D TextureUnit1; // Buffer A (if available)
+        ///uniform sampler2D TextureUnit2; // Buffer B (if available)
+        ///uniform sampler2D TextureUnit3; // Buffer C (if available)
+        ///uniform sampler2D TextureUnit4; // Buffer D (if av [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Edit_VS {
+        public static string Shader_Edit_FS {
             get {
-                return ResourceManager.GetString("Edit_VS", resourceCulture);
+                return ResourceManager.GetString("Shader_Edit_FS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0; // Original
         ///
-        /////region Photoshop Uniforms
-        ///uniform vec3	iColorBG;	// Photoshop Background Color
-        ///uniform vec3	iColorFG;	// Photoshop Foreground Color
-        ///uniform vec2	iImageSize;	// Image Size
-        ///uniform vec2	iViewSize;	// Viewport Size
-        ///uniform vec4	iRandom;	// Random values [0 .. 1]
-        ///uniform float	iTime;		// Plugin running time
-        ///uniform vec4	iDate;		// Year, Month, Day, Time in seconds
-        /////endregion
+        ///// Region Common code include
+        ///#extension GL_ARB_shading_language_include : enable
         ///
-        ///in vec2 f_UV;
+        ///#ifdef GL_ARB_shading_language_include
+        ///#include &lt;/common.glsl&gt;
+        ///#endif
+        ///// EndRegion Common code include
         ///
-        ///layout(location = 0) out vec4 FragColor;
-        ///
-        ///vo [rest of string was truncated]&quot;;.
+        ///// Region Uniforms
+        ///uniform sampler2D TextureUnit0; // Original Image
+        ///uniform sampler2D TextureUnit1; // Buffer A (if available)
+        ///uniform sampler2D TextureUnit2; // Buffer B (if available)
+        ///uniform sampler2D TextureUnit3; // Buffer C (if available)
+        ///uniform sampler2D TextureUnit4; // Buffer D (if av [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string EditBufferA_FS {
+        public static string Shader_Edit_VS {
             get {
-                return ResourceManager.GetString("EditBufferA_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_Edit_VS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0; // Original
-        ///uniform sampler2D TextureUnit1; // Buffer A
         ///
-        /////region Photoshop Uniforms
-        ///uniform vec3	iColorBG;	// Photoshop Background Color
-        ///uniform vec3	iColorFG;	// Photoshop Foreground Color
-        ///uniform vec2	iImageSize;	// Image Size
-        ///uniform vec2	iViewSize;	// Viewport Size
-        ///uniform vec4	iRandom;	// Random values [0 .. 1]
-        ///uniform float	iTime;		// Plugin running time
-        ///uniform vec4	iDate;		// Year, Month, Day, Time in seconds
-        /////endregion
+        ///// Region Common code include
+        ///#extension GL_ARB_shading_language_include : enable
         ///
-        ///in vec2 f_UV;
+        ///#ifdef GL_ARB_shading_language_include
+        ///#include &lt;/common.glsl&gt;
+        ///#endif
+        ///// EndRegion Common code include
         ///
-        ///l [rest of string was truncated]&quot;;.
+        ///// Region Uniforms
+        ///uniform sampler2D TextureUnit0; // Original Image
+        ///uniform sampler2D TextureUnit1; // Buffer A (if available)
+        ///uniform sampler2D TextureUnit2; // Buffer B (if available)
+        ///uniform sampler2D TextureUnit3; // Buffer C (if available)
+        ///uniform sampler2D TextureUnit4; // Buffer D (if av [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string EditBufferB_FS {
+        public static string Shader_EditNew_FS {
             get {
-                return ResourceManager.GetString("EditBufferB_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_EditNew_FS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0; // Original
-        ///uniform sampler2D TextureUnit1; // Buffer A
-        ///uniform sampler2D TextureUnit2; // Buffer B
         ///
-        /////region Photoshop Uniforms
-        ///uniform vec3	iColorBG;	// Photoshop Background Color
-        ///uniform vec3	iColorFG;	// Photoshop Foreground Color
-        ///uniform vec2	iImageSize;	// Image Size
-        ///uniform vec2	iViewSize;	// Viewport Size
-        ///uniform vec4	iRandom;	// Random values [0 .. 1]
-        ///uniform float	iTime;		// Plugin running time
-        ///uniform vec4	iDate;		// Year, Month, Day, Time  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string EditBufferC_FS {
-            get {
-                return ResourceManager.GetString("EditBufferC_FS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0; // Original
-        ///uniform sampler2D TextureUnit1; // Buffer A
-        ///uniform sampler2D TextureUnit2; // Buffer B
-        ///uniform sampler2D TextureUnit3; // Buffer C
-        ///
-        /////region Photoshop Uniforms
-        ///uniform vec3	iColorBG;	// Photoshop Background Color
-        ///uniform vec3	iColorFG;	// Photoshop Foreground Color
-        ///uniform vec2	iImageSize;	// Image Size
-        ///uniform vec2	iViewSize;	// Viewport Size
-        ///uniform vec4	iRandom;	// Random values [0 .. 1]
-        ///uniform float	iTime;		// Plugin running time
-        ///un [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string EditBufferD_FS {
-            get {
-                return ResourceManager.GetString("EditBufferD_FS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0;
-        ///
-        /////region Photoshop Uniforms
-        ///uniform vec3	iColorBG;	// Photoshop Background Color
-        ///uniform vec3	iColorFG;	// Photoshop Foreground Color
-        ///uniform vec2	iImageSize;	// Image Size
-        ///uniform vec2	iViewSize;	// Viewport Size
-        ///uniform vec4	iRandom;	// Random values [0 .. 1]
-        ///uniform float	iTime;		// Plugin running time
-        ///uniform vec4	iDate;		// Year, Month, Day, Time in seconds
-        /////endregion
-        ///
-        ///in vec2 f_UV;
-        ///
-        ///layout(location = 0) out vec4 FragColor;
-        ///
-        ///void main()
-        ///{ [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string EditImage_FS {
-            get {
-                return ResourceManager.GetString("EditImage_FS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] glslHightlight {
-            get {
-                object obj = ResourceManager.GetObject("glslHightlight", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Help {
-            get {
-                object obj = ResourceManager.GetObject("Help", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap New {
-            get {
-                object obj = ResourceManager.GetObject("New", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Open {
-            get {
-                object obj = ResourceManager.GetObject("Open", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Paste {
-            get {
-                object obj = ResourceManager.GetObject("Paste", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Redo {
-            get {
-                object obj = ResourceManager.GetObject("Redo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Save {
-            get {
-                object obj = ResourceManager.GetObject("Save", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Undo {
-            get {
-                object obj = ResourceManager.GetObject("Undo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #version 330
-        ///uniform sampler2D TextureUnit0; // Original
-        ///uniform sampler2D TextureUnit1; // Processed
+        ///uniform sampler2D TextureUnit0; // Original Image
+        ///uniform sampler2D TextureUnit1; // Processed Image
         ///uniform sampler2D TextureUnit2; // Buffer A
         ///uniform sampler2D TextureUnit3; // Buffer B
         ///uniform sampler2D TextureUnit4; // Buffer C
@@ -363,16 +225,17 @@ namespace ShaderPluginGUI.Properties {
         ///
         ///void main()
         ///{
-        ///	vec4 Original = text [rest of string was truncated]&quot;;.
+        ///	vec4 O [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string View_FS {
+        public static string Shader_View_FS {
             get {
-                return ResourceManager.GetString("View_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_View_FS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
+        ///
         ///layout(location = 0) in vec2 v_Position;
         ///layout(location = 1) in vec2 v_UV;
         ///
@@ -386,9 +249,9 @@ namespace ShaderPluginGUI.Properties {
         ///	gl_Position = MVP * vec4(v_Position, 0.0, 1.0);
         ///}.
         /// </summary>
-        public static string View_VS {
+        public static string Shader_View_VS {
             get {
-                return ResourceManager.GetString("View_VS", resourceCulture);
+                return ResourceManager.GetString("Shader_View_VS", resourceCulture);
             }
         }
         
@@ -411,9 +274,9 @@ namespace ShaderPluginGUI.Properties {
         ///	float Checker = mod(Pos.x + Pos.y, 2.0);
         ///    FragColor = mix(ColorDark, ColorLight, C [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string ViewGrid_FS {
+        public static string Shader_ViewGrid_FS {
             get {
-                return ResourceManager.GetString("ViewGrid_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_ViewGrid_FS", resourceCulture);
             }
         }
         
@@ -429,14 +292,15 @@ namespace ShaderPluginGUI.Properties {
         ///    FragColor = LineColor;
         ///}.
         /// </summary>
-        public static string ViewLine_FS {
+        public static string Shader_ViewLine_FS {
             get {
-                return ResourceManager.GetString("ViewLine_FS", resourceCulture);
+                return ResourceManager.GetString("Shader_ViewLine_FS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to #version 330
+        ///
         ///layout(location = 0) in vec2 v_Position;
         ///
         ///void main()
@@ -444,9 +308,9 @@ namespace ShaderPluginGUI.Properties {
         ///	gl_Position = vec4(v_Position, 0.0, 1.0);
         ///}.
         /// </summary>
-        public static string ViewLine_VS {
+        public static string Shader_ViewLine_VS {
             get {
-                return ResourceManager.GetString("ViewLine_VS", resourceCulture);
+                return ResourceManager.GetString("Shader_ViewLine_VS", resourceCulture);
             }
         }
     }

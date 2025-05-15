@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PS_Structures
+namespace ShaderPlugin.PS_Structures
 {
     public delegate Int16 DisplayPixelsProc(ref PSPixelMap source,
         ref VRect srcVRect,

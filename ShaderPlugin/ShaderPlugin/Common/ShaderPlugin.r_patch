@@ -1,0 +1,332 @@
+@@ -611,471 +611,22 @@
+ //%09%09
+-NearestBase.r%0d%0a//%0d%0a//%09Description:%0d%0a//%09%09This file contains the resource text%0d%0a//%09%09for the Color Picker example module NearestBase.%0d%0a//%0d%0a//%09Use:%0d%0a//%09%09NearestBase provides another color picker (available%0d%0a//%09%09from File: Preferences: General) that cycles through%0d%0a//%09%09four primary colors.  Once selected, clicking any%0d%0a//%09%09location that normally pops a picker (such as the%0d%0a//%09%09foreground or background color) will automatically%0d%0a//%09%09cycle to the next primary color.
++ShaderPlugin.r
+ %0d%0a//
+@@ -1059,27 +1059,29 @@
+ Name%09%09%09%22
+-NearestBase
++Shader Plugin
+ %22%0d%0a#defi
+@@ -1108,12 +1108,19 @@
+ ar%09%22
+-1996
++2020 - 2025
+ %22%0d%0a#
+@@ -1121,25 +1121,25 @@
+ 25%22%0d%0a#define
+- 
++%09
+ plugInDescri
+@@ -1154,49 +1154,45 @@
+ %0a%09%22A
+-n example plug-in color picker module for
++ plug-in filter using GLSL Shaders in
+  Ado
+@@ -1207,9 +1207,8 @@
+ shop
+-%ef%bf%bd
+ .%22%0d%0a
+@@ -1503,16 +1503,21 @@
+ %09%09%09%22
+-AdobeSDK
++Shader Plugin
+ %22%0d%0a#
+@@ -1547,46 +1547,29 @@
+ t %09%22
+-nearestbase example color picker p
++Photoshop Shader P
+ lug
+--
+ in%22%0d
+@@ -1598,17 +1598,17 @@
+ ID%09%09'sdK
+-9
++B
+ '%0d%0a#defi
+@@ -1668,12 +1668,12 @@
+ D%09%09'
+-pckR
++clrM
+ '%0d%0a%0d
+@@ -1922,58 +1922,71 @@
+ h%22%0d%0a
+-#include %22PIResourceDefines.h%22%0d%0a%0d%0a#ifdef __PIMac__
++%0d%0a#ifdef __PIMac__%0d%0a%09#include %22Types.r%22%0d%0a%09#include %22SysTypes.r%22
+ %0d%0a%09#
+@@ -2445,39 +2445,34 @@
+ %0a%7b%0d%0a
+-    %7b%0d%0a%09    
++%09%09%7b%0d%0a%09%09
+ Kind %7b 
+-Pick
++Filt
+ er %7d,%0d%0a%09
+     
+@@ -2467,20 +2467,17 @@
+ er %7d,%0d%0a%09
+-    
++%09
+ Name %7b p
+@@ -2485,26 +2485,29 @@
+ ugInName
++ %22...%22
+  %7d,%0d%0a%09
+-    
++%09
+ Category
+@@ -2525,20 +2525,17 @@
+ me %7d,%0d%0a%09
+-    
++%09
+ Version 
+@@ -2543,20 +2543,20 @@
+  (latest
+-Pick
++Filt
+ erVersio
+@@ -2572,20 +2572,20 @@
+ %7c latest
+-Pick
++Filt
+ erSubVer
+@@ -2598,140 +2598,384 @@
+ ,%0d%0a%09
+-    %0d%0a%09%09Component %7b ComponentNumber, plugInName
++%09%0d%0a%09%09#ifdef __PIMac__%0d%0a%09%09%09#if (defined(__i386__))%0d%0a%09%09%09%09%0d%0a%09%09%09%09CodeMacIntel32 %7b %22PluginMain%22
+  %7d,%0d%0a
++%09%09%09%09
+ %0d%0a%09%09
+-#if Macintosh%0d%0a%09%09%09#if defined(__arm64__)%0d%0a%09%09%09%09CodeMacARM64 %7b %22P
++%09%09/* If your plugin uses Objective-C, Cocoa, for UI it should not be%0d%0a%09%09%09%09   unloaded, this flag is valid for 32 bit plug-ins only and%0d%0a%09%09%09       should not be used in any windows section */%0d%0a%09%09%09       %0d%0a%09%09%09%09// off for now as this p
+ lug
++-
+ in
+-Main%22 %7d,
++ has no Objective-C Cocoa %7b%7d, %0d%0a%09%09%09
+ %0d%0a%09%09
+@@ -2990,16 +2990,17 @@
+ %0a%09%09%09#if 
++(
+ defined(
+@@ -3010,16 +3010,17 @@
+ 86_64__)
++)
+ %0d%0a%09%09%09%09Co
+@@ -3071,44 +3071,98 @@
+ %09#el
+-if MSWindows
++se%0d%0a%09%09%09#if defined(_WIN64)
+ %0d%0a%09%09%09
++%09
+ Code
+-EntryPointWin64
++Win64X86 %7b %22PluginMain%22 %7d,%0d%0a%09%09%09#else%0d%0a%09%09%09%09CodeWin32X86
+  %7b %22
+@@ -3179,16 +3179,27 @@
+ %22 %7d,%0d%0a%09%09
++%09#endif%0d%0a%09%09
+ #endif%0d%0a
+@@ -3206,45 +3206,197 @@
+ %0d%0a%09%09
+-PickerID %7b vendorName %22 %22 plugInName 
++HasTerminology%0d%0a%09%09%7b%0d%0a%09%09%09plugInClassID,%09%09%09%09%09// Class ID%0d%0a%09%09%09plugInEventID,%09%09%09%09%09// Event ID%0d%0a%09%09%09ResourceID,%09%09%09%09%09%09// AETE ID%0d%0a%09%09%09// Unique string or empty for AppleScript compliant:%0d%0a%09%09%09%22%22%0d%0a%09%09
+ %7d,%0d%0a
+@@ -3425,27 +3425,18 @@
+ %09%09%7b%0d%0a%09%09%09
+-doesSupport
++no
+ Bitmap, 
+@@ -3461,27 +3461,18 @@
+ le,%0d%0a%09%09%09
+-doesSupport
++no
+ IndexedC
+@@ -3650,42 +3650,2451 @@
+ %7d,%0d%0a
++%0d%0a
+ %09%09
++EnableInfo%0d%0a
+ %09%09
++%7b
+ %0d%0a%09%09
+-EnableInfo %7b %22true%22 %7d,%0d%0a%09%7d
++%09%22in (PSHOP_ImageMode, GrayScaleMode, RGBMode, CMYKMode,%22%0d%0a%09%09%09%22HSLMode, HSBMode, MultichannelMode,%22%0d%0a%09%09%09%22DuotoneMode, Gray16Mode, RGB48Mode,%22 %0d%0a%09%09%09%22Gray32Mode, RGB96Mode)%22%0d%0a%09%09%7d,%0d%0a%0d%0a%09%09PlugInMaxSize %7b 65536, 65536 %7d,%0d%0a%0d%0a%09%09FilterCaseInfo%0d%0a%09%09%7b%0d%0a%09%09%09%7b%0d%0a%09%09%09%09/* Flat data, no selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%09%0d%0a%09%09%09%09/* Flat data with selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%0d%0a%09%09%09%09/* Floating selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%09%0d%0a%09%09%09%09/* Editable transparency, no selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%09%0d%0a%09%09%09%09/* Editable transparency, with selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%09%0d%0a%09%09%09%09/* Preserved transparency, no selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination,%0d%0a%09%09%09%09%09%0d%0a%09%09%09%09/* Preserved transparency, with selection */%0d%0a%09%09%09%09inStraightData, outStraightData,%0d%0a%09%09%09%09doNotWriteOutsideSelection,%0d%0a%09%09%09%09filtersLayerMasks, worksWithBlankData,%0d%0a%09%09%09%09doNotCopySourceToDestination%0d%0a%09%09%09%7d%0d%0a%09%09%7d,%0d%0a%09%09%09%0d%0a%09%09// PhotoDeluxe PiPL property:%0d%0a%09%09ButtonIcon%0d%0a%09%09%7b%0d%0a%09%09%09cicn,%09%09%09%09// Macintosh icon type%0d%0a%09%09%09ICON, %09%09%09%09// Windows icon type%0d%0a%09%09%09ResourceID,%09%09%09// Icon resource ID%0d%0a%09%09%09plugInName%09 %09%09// Button text display%0d%0a%09%09%7d%0d%0a%0d%0a%09%7d%0d%0a%7d;%0d%0a%0d%0a//-------------------------------------------------------------------------------%0d%0a//%09PiMI resource (Photoshop 2.5 and other older hosts)%0d%0a//-------------------------------------------------------------------------------%0d%0a%0d%0aresource 'PiMI' (ResourceID, plugInName %22 PiMI%22, purgeable)%0d%0a%7b %0d%0a%09latestFilterVersion,%0d%0a%09latestFilterSubVersion,%0d%0a%090,%0d%0a%09supportsGrayScale +%0d%0a%09supportsRGBColor +%0d%0a%09supportsCMYKColor +%0d%0a%09supportsHSLColor +%0d%0a%09supportsHSBColor +%0d%0a%09supportsMultichannel +%0d%0a%09supportsDuotone +%0d%0a%09supportsLABColor,%0d%0a%09'    ', /* No required host */%0d%0a%09%7b%7d,
+ %0d%0a%7d;
+@@ -6400,18 +6400,20 @@
+ ,%09%09%09%09%09%09%09
+-//
++%09%09/*
+  aete ve
+@@ -6442,16 +6442,18 @@
+ cifiers 
++*/
+ %0d%0a%09%7b%0d%0a%09%09
+@@ -6472,18 +6472,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  vendor 
+@@ -6499,44 +6499,41 @@
+ ame 
++*/
+ %0d%0a%09%09%22
+-Adobe example p
++Shader P
+ lug
+--
+ in
+-s
+ %22,%09%09%09%09%09
+-//
++%09%09%09%09/*
+  opt
+@@ -6546,24 +6546,26 @@
+ description 
++*/
+ %0d%0a%09%09plugInSu
+@@ -6575,26 +6575,27 @@
+ ID,%09%09%09%09%09%09%09%09%09
+-//
++%09/*
+  suite ID %0d%0a
+@@ -6588,24 +6588,26 @@
+ /* suite ID 
++*/
+ %0d%0a%09%091,%09%09%09%09%09%09
+@@ -6607,26 +6607,28 @@
+ ,%09%09%09%09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  suite code,
+@@ -6634,24 +6634,26 @@
+ , must be 1 
++*/
+ %0d%0a%09%091,%09%09%09%09%09%09
+@@ -6657,18 +6657,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  suite l
+@@ -6685,16 +6685,18 @@
+ st be 1 
++*/
+ %0d%0a%09%09%7b%09%09%09
+@@ -6703,18 +6703,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  structu
+@@ -6730,16 +6730,18 @@
+ filters 
++*/
+ %0d%0a%09%09%09ven
+@@ -6767,18 +6767,20 @@
+ ame,%09%09%09%09
+-//
++%09%09/*
+  unique 
+@@ -6787,24 +6787,26 @@
+ filter name 
++*/
+ %0d%0a%09%09%09plugInA
+@@ -6818,26 +6818,28 @@
+ mment,%09%09%09%09%09%09
+-//
++%09%09/*
+  optional de
+@@ -6844,24 +6844,26 @@
+ description 
++*/
+ %0d%0a%09%09%09plugInC
+@@ -6876,18 +6876,20 @@
+ ,%09%09%09%09%09%09%09
+-//
++%09%09/*
+  class I
+@@ -6914,24 +6914,26 @@
+ or Suite ID 
++*/
+ %0d%0a%09%09%09plugInE
+@@ -6946,18 +6946,20 @@
+ ,%09%09%09%09%09%09%09
+-//
++%09%09/*
+  event I
+@@ -6980,20 +6980,10 @@
+ que 
+-to class ID 
++*/
+ %0d%0a%09%09
+@@ -7005,18 +7005,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  never a
+@@ -7024,16 +7024,18 @@
+ a reply 
++*/
+ %0d%0a%09%09%09IMA
+@@ -7059,18 +7059,20 @@
+ ER,%09%09%09%09%09
+-//
++%09%09/*
+  direct 
+@@ -7100,16 +7100,18 @@
+ otoshop 
++*/
+ %0d%0a%09%09%09%7b%09%09
+@@ -7114,26 +7114,28 @@
+ %09%7b%09%09%09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  parameters 
+@@ -7151,249 +7151,33 @@
+ any 
+-%0d%0a%09%09%09%09%22amount%22,%09%09%09%09%09%09%09// parameter name %0d%0a%09%09%09%09keyAmount,%09%09%09%09%09%09%09// parameter key ID %0d%0a%09%09%09%09typeFloat,%09%09%09%09%09%09%09// parameter type ID %0d%0a%09%09%09%09%22dissolve amount%22,%09%09%09%09%09// optional description %0d%0a%09%09%09%09flagsSingleParameter,%09%09%09%09// parameter flags %0d%0a%09
++*/%0d%0a%09%09%09%09%09%0d%0a%09%09%09%7d%0d%0a
+ %09%09%7d,%0d%0a%09%09
+ %7d,%0d%0a
+@@ -7176,17 +7176,13 @@
+ %0d%0a%09%09
++%7b
+ %7d,
+-%0d%0a%09%09%7b%7d,
++%09%09
+ %09%09%09%09
+@@ -7189,17 +7189,17 @@
+ %09%09%09%09%09%09%09/
+-/
++*
+  non-fil
+@@ -7221,16 +7221,18 @@
+ ss here 
++*/
+ %0d%0a%09%09%7b%7d,%09
+@@ -7241,18 +7241,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  compari
+@@ -7277,23 +7277,23 @@
+ ported) 
++*/
+ %0d%0a%09%09%7b
+-%7d,
+ %09%09%09%09%09%09%09%09
+@@ -7295,18 +7295,20 @@
+ %09%09%09%09%09%09%09%09
+-//
++%09%09/*
+  any enu
+@@ -7321,13 +7321,21 @@
+ ons 
++*/
+ %0d%0a%09
+-%7d,
++%09%7d%0d%0a%0d%0a%09%7d
+ %0d%0a%7d;
+@@ -7425,28 +7425,430 @@
+ --%0d%0a
+-%0d%0a// end NearestBase.r%0d%0a
++//%09FltD -- Animation resource for use in Premiere%0d%0a//-------------------------------------------------------------------------------%0d%0a%0d%0aresource 'FltD' (ResourceID, plugInName %22 Premiere FltD%22, purgeable)%0d%0a%7b%0d%0a%09%7b%0d%0a%09%09pdShort, 0,%09%09// Interpolate the foreground colors%0d%0a%09%09pdShort, 0,%0d%0a%09%09pdShort, 0,%0d%0a%09%09pdShort, 0,%0d%0a%09%7d;%0d%0a%7d;%0d%0a%0d%0a//-------------------------------------------------------------------------------%0d%0a// end ShaderPlugin.r

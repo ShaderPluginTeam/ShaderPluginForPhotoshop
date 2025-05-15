@@ -1,11 +1,7 @@
-﻿using PS_Structures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace ShaderPluginGUI.PS_Structures
+namespace ShaderPlugin.PS_Structures
 {
     public class FilterRecordM
     {
@@ -815,7 +811,7 @@ namespace ShaderPluginGUI.PS_Structures
         ///<summary>
         /// Size of working profile.
         /// </summary>
-        public int iCCWorkingProfileSize { get { return ptrData.iCCWorkingProfileSize; } set { ptrData.iCCWorkingProfileSize = value; } }    /**<  */
+        public int iCCWorkingProfileSize { get { return ptrData.iCCWorkingProfileSize; } set { ptrData.iCCWorkingProfileSize = value; } }
 
         //name Reserved Space for Expansion
 

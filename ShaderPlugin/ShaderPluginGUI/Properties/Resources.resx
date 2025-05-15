@@ -118,70 +118,41 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Edit_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_CommonCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\CommonCode.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="EditImage_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditImage_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_Edit_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\Edit_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="EditBufferA_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditBufferA_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_Edit_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\Edit_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="EditBufferB_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditBufferB_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_EditNew_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\EditNew_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <comment>Used for "New" shaders</comment>
   </data>
-  <data name="EditBufferC_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditBufferC_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_View_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\View_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="EditBufferD_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditBufferD_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Shader_View_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\View_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shader_ConvertImageFomat_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\ConvertImageFomat_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shader_ConvertImageFomat_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\ConvertImageFomat_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="New" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shader_ViewGrid_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\ViewGrid_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shader_ViewLine_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\ViewLine_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shader_ViewLine_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shaders\ViewLine_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="View_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\View_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="View_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\View_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ConvertImageFomat_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ConvertImageFomat_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ConvertImageFomat_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ConvertImageFomat_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ViewGrid_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ViewGrid_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ViewLine_FS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ViewLine_FS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ViewLine_VS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ViewLine_VS.glsl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="glslHightlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="GLSL_Hightlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\glslHightlight.xshd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

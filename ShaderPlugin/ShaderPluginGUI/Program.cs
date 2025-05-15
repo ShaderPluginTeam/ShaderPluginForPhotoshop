@@ -1,51 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
+using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
-using PS_Structures;
-using ShaderPluginGUI.PS_Structures;
+using ShaderPlugin.PS_Structures;
+
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ShaderPluginGUI
 {
-    public enum PSPluginErrorCodes : short
-    {
-        NoError = 0,
-        UserCanceledError = -128,
-        CoercedParamError = 2,
-        ReadError = -19,
-        WriteError = -20,
-        OpenError = -23,
-        DiskFullError = -34,
-        IOError = -36,
-        eofErr = -39, // Also - end of descriptor error.
-        fnfErr = -43,
-        vLckdErr = -46,
-        fLckdErr = -45,
-        ParamError = -50,
-        MemoryFullError = -108,
-        NullHandleErr = -109,
-        memWZErr = -111
-    }
-
     public static class Program
     {
         public static PSPluginErrorCodes Result = PSPluginErrorCodes.UserCanceledError; // Canceled by User
-        public static String StartupPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PhotoshopShaderPlugin");
-        public static String ShadersFolderPath = Path.Combine(StartupPath, "Shaders");
+        public static string StartupPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ShaderPlugin for Photoshop");
+        public static string ShadersFolderPath = Path.Combine(StartupPath, "Shaders");
         public static FilterRecordM filterRecord;
         public static IntPtr PhotoshopWindowPointer;
         public static IntPtr LastParamsPtr;
 
+        // RunWithoutPhotoshop Debug Image
+        public static WriteableBitmap DebugImage = null;
+
         public static short Main(IntPtr PhotoshopWindowHandle, IntPtr FilterRecordPtr, IntPtr LastParamsPointer)
         {
+            if (Application.ResourceAssembly == null)
+            {
+                Application.ResourceAssembly = typeof(MainWindow).Assembly; // Set assembly for Resources}
+            }
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; //For fix parsing values like "0.5" and "0,5"
+
+            #region Unhandled Exceptions
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            {
+                ThreadExceptionDialog ExceptionDialog = new ThreadExceptionDialog((Exception)e.ExceptionObject);
+                ExceptionDialog.Scale(new SizeF(1.5f, 1.5f));
+                ExceptionDialog.ShowDialog();
+            };
+
+            Dispatcher.CurrentDispatcher.UnhandledException += (sender, e) =>
+            {
+                ThreadExceptionDialog ExceptionDialog = new ThreadExceptionDialog(e.Exception);
+                ExceptionDialog.Scale(new SizeF(1.5f, 1.5f));
+                ExceptionDialog.ShowDialog();
+                e.Handled = true; // Prevents close all (app can fully crash Photoshop)
+            };
+            #endregion Unhandled Exceptions
+
             Result = PSPluginErrorCodes.UserCanceledError;
 
             if (!Directory.Exists(StartupPath))
@@ -63,20 +72,55 @@ namespace ShaderPluginGUI
             }
 
             if (!Directory.Exists(ShadersFolderPath))
-                ShadersFolderPath = StartupPath;
-
-            PhotoshopWindowPointer = PhotoshopWindowHandle;
-            filterRecord = FilterRecordM.Load(FilterRecordPtr);
-            LastParamsPtr = LastParamsPointer;
-
-            SplashWindow splashWindow = new SplashWindow();
-            WindowInteropHelper windowInteropHelper = new WindowInteropHelper(splashWindow)
             {
-                Owner = PhotoshopWindowHandle
-            };
-            splashWindow.ShowDialog();
+                ShadersFolderPath = StartupPath;
+            }
+
+            try
+            {
+                PhotoshopWindowPointer = PhotoshopWindowHandle;
+                filterRecord = FilterRecordPtr != IntPtr.Zero ? FilterRecordM.Load(FilterRecordPtr) : null;
+                LastParamsPtr = LastParamsPointer;
+
+                MainWindow MainWindow = new MainWindow();
+                WindowInteropHelper windowInteropHelper = new WindowInteropHelper(MainWindow)
+                {
+                    Owner = PhotoshopWindowHandle
+                };
+                MainWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ThreadExceptionDialog ExceptionDialog = new ThreadExceptionDialog(ex);
+                ExceptionDialog.Scale(new SizeF(1.5f, 1.5f));
+                ExceptionDialog.ShowDialog();
+            }
 
             return (short)Result;
+        }
+
+        /// <summary>
+        /// Need apply plugin with last params or just open plugin window.
+        /// </summary>
+        public static bool PhotoshopRunLastFilterEnabled
+        {
+            get
+            {
+                if (LastParamsPtr != IntPtr.Zero)
+                {
+                    byte[] Bytes = new byte[1]; // Must be same as at C++ part
+                    Marshal.Copy(LastParamsPtr, Bytes, 0, Bytes.Length);
+                    return (Bytes[0] != 0); // First byte - "Last Filter"
+                }
+                return false;
+            }
+            set
+            {
+                if (LastParamsPtr != IntPtr.Zero)
+                {
+                    Marshal.Copy(new byte[] { (byte)(value ? 1 : 0) }, 0, LastParamsPtr, 1);
+                }
+            }
         }
     }
 }

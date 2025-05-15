@@ -1,0 +1,45 @@
+﻿<local:DarkWindow x:Class="ShaderPluginGUI.ErrorWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                  xmlns:local="clr-namespace:ShaderPluginGUI"
+                  mc:Ignorable="d"
+                  Width="1100" Height="700" ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+                  Title="Shader Errors" Background="{DynamicResource BackgroundBrushNormal}" Icon="/Resources/WindowIcon.ico"
+                  KeyDown="Window_KeyDown">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Theme.xaml"/>
+                <ResourceDictionary Source="/Styles/AvalonEditStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/TabControlStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/WindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <TabControl Name="tabControlErrors" Margin="6, 0, 6, 6" SelectedIndex="5">
+        <TabItem Name="tabItemCommon" Header="Common">
+            <avalonEdit:TextEditor Name="textEditorCommonCode" Style="{StaticResource TextEditor.ErrorWindow}"/>
+        </TabItem>
+        <TabItem Name="tabItemBufferA" Header="Buffer A">
+            <avalonEdit:TextEditor Name="textEditorBufferA" Style="{StaticResource TextEditor.ErrorWindow}"/>
+        </TabItem>
+        <TabItem Name="tabItemBufferB" Header="Buffer B">
+            <avalonEdit:TextEditor Name="textEditorBufferB" Style="{StaticResource TextEditor.ErrorWindow}"/>
+        </TabItem>
+        <TabItem Name="tabItemBufferC" Header="Buffer C">
+            <avalonEdit:TextEditor Name="textEditorBufferC" Style="{StaticResource TextEditor.ErrorWindow}"/>
+        </TabItem>
+        <TabItem Name="tabItemBufferD" Header="Buffer D">
+            <avalonEdit:TextEditor Name="textEditorBufferD" Style="{StaticResource TextEditor.ErrorWindow}"/>
+        </TabItem>
+        <TabItem Name="tabItemImage" Header="Image">
+            <avalonEdit:TextEditor Name="textEditorImage" Style="{StaticResource TextEditor.ErrorWindow}"
+                                   d:Text="Image Errors list"/>
+        </TabItem>
+    </TabControl>
+</local:DarkWindow>

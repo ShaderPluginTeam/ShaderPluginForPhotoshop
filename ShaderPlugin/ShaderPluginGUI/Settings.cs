@@ -1,11 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace ShaderPluginGUI
@@ -13,13 +10,13 @@ namespace ShaderPluginGUI
     [XmlRoot(ElementName = "Config")]
     public class SettingsXML
     {
-        public const string XmlFile = "Settings.xml";
+        static string SettingsPath = Path.Combine(Program.StartupPath, "Settings.xml");
 
-        public static bool Save(SettingsXML SettingsXml, string FullPath)
+        public bool Save()
         {
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(FullPath, new XmlWriterSettings() { Indent = true, IndentChars = "\t", OmitXmlDeclaration = true }))
+                using (XmlWriter xmlWriter = XmlWriter.Create(SettingsPath, new XmlWriterSettings() { Indent = true, IndentChars = "\t", OmitXmlDeclaration = true }))
                 {
                     #region Remove 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ...'
                     XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
@@ -27,9 +24,9 @@ namespace ShaderPluginGUI
                     #endregion
 
                     XmlSerializer serializer = new XmlSerializer(typeof(SettingsXML));
-                    serializer.Serialize(xmlWriter, SettingsXml, namespaces);
+                    serializer.Serialize(xmlWriter, this, namespaces);
                     xmlWriter.Close();
-                    return File.Exists(FullPath);
+                    return File.Exists(SettingsPath);
                 }
             }
             catch
@@ -38,18 +35,18 @@ namespace ShaderPluginGUI
             }
         }
 
-        public static SettingsXML Load(string XmlFile)
+        public static SettingsXML LoadOrDefault()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(SettingsXML));
-            if (File.Exists(XmlFile)) //If file exist
+            if (File.Exists(SettingsPath)) //If file exist
             {
                 try
                 {
-                    using (FileStream SettingsFile = new FileStream(XmlFile, FileMode.Open))
+                    using (FileStream SettingsFile = new FileStream(SettingsPath, FileMode.Open))
                     {
-                        SettingsXML S = (SettingsXML)serializer.Deserialize(SettingsFile);
+                        SettingsXML settings = (SettingsXML)serializer.Deserialize(SettingsFile);
                         SettingsFile.Close();
-                        return S;
+                        return settings;
                     }
                 }
                 catch
@@ -59,30 +56,21 @@ namespace ShaderPluginGUI
             }
             else //File not exist
             {
-                if (Save(new SettingsXML(), XmlFile)) //Save new SettingsFile
-                {
-                    using (FileStream SettingsFile = new FileStream(XmlFile, FileMode.Open))
-                    {
-                        SettingsXML S = (SettingsXML)serializer.Deserialize(SettingsFile);
-                        SettingsFile.Close();
-                        return S;
-                    }
-                }
-                else
-                    return null;
+                return new SettingsXML();
             }
         }
 
         #region Settings
         public FormWindowState WindowState = FormWindowState.Normal;
 
-        public TextureMagFilter MagFilter = TextureMagFilter.Nearest;
-        public TextureMinFilter MinFilter = TextureMinFilter.Nearest;
-        public bool UseMipMaps = true;
+        public TextureMagFilter PreviewMagFilter = TextureMagFilter.Nearest;
+        public TextureMinFilter PreviewMinFilter = TextureMinFilter.LinearMipmapLinear;
+        public bool ForceCompileWhenApply = false;
+
         public ColorRGBA BackgroundColor = new ColorRGBA(0.25f, 0.25f, 0.25f, 0f);
 
-        public _PreviewLine PreviewLine = new _PreviewLine();
-        public class _PreviewLine
+        public _PreviewSplitter PreviewSplitter = new _PreviewSplitter();
+        public class _PreviewSplitter
         {
             public ColorRGBA LineColor = new ColorRGBA(0.7f, 0.7f, 0.7f, 0f);
             public float LineWidth = 2f;

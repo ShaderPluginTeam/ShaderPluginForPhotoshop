@@ -1,0 +1,274 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:commands="clr-namespace:ShaderPluginGUI.Commands"
+                    xmlns:behaviours="clr-namespace:ShaderPluginGUI.CommandBehavior"
+                    xmlns:local="clr-namespace:ShaderPluginGUI">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styles/Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/ScrollBarStyle.xaml"/>
+        <ResourceDictionary Source="/Styles/TabControlStyle.xaml"/>
+        <ResourceDictionary Source="/Styles/TextBoxStyle.xaml"/>
+        <ResourceDictionary Source="/Styles/ToolTipStyle.xaml"/>
+        <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="32"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBackground" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Minimized">
+                            <Setter Property="Width" Value="42"/>
+                        </DataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="ButtonBackground" Value="0.3"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="ButtonBackground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="ButtonBackground" Value="{StaticResource BackgroundBrushNormal}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="ButtonBackground" Value="{StaticResource BackgroundBrushSelected}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource BackgroundBrushNormal}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource BackgroundBrushSelected}"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="closeButtonStyle" BasedOn="{StaticResource TitleBarButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="ButtonBackground" Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Minimized">
+                            <Setter Property="Width" Value="42"/>
+                        </DataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="ButtonBackground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="ButtonBackground" Value="{StaticResource CloseButtonMouseOver}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="ButtonBackground" Value="{StaticResource CloseButtonIsPressed}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="TextElement.Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="TextElement.Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Window.Dark" TargetType="{x:Type local:DarkWindow}">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+
+        <!--12 by default-->
+        <Setter Property="TitleBarFontSize" Value="13"/>
+        <Setter Property="TitleBarBackground" Value="{StaticResource WindowBackgroundBrush}"/>
+        <Setter Property="TitleBarForeground" Value="WhiteSmoke"/>
+
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="ResizeMode" Value="CanResize"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DarkWindow}">
+                    <Border x:Name="BorderWindow"
+                            Background="{TemplateBinding TitleBarBackground}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="True">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Minimized">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <!--Actual Window Content (TopPanel and Content). Small Margin - Close button can't lost focus bugfix-->
+                        <Grid x:Name="GridTitleBar" DockPanel.Dock="Top" Background="{TemplateBinding TitleBarBackground}" SnapsToDevicePixels="True">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Margin" Value="0.0001"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Minimized">
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="MinWidth" Value="0"/>
+                                            <Setter Property="Width" Value="160"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                                            <Setter Property="Margin" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32" MinHeight="{Binding Path=MinSize.Height}"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid x:Name="PanelTitle" Grid.Row="0" Grid.Column="0" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Style>
+                                    <Style TargetType="{x:Type Grid}">
+                                        <Setter Property="behaviours:MouseUpCommandBehavior.Command" Value="{x:Static commands:WindowCommands.BarMouseUp}"/>
+                                        <Setter Property="behaviours:MouseDownCommandBehavior.Command" Value="{x:Static commands:WindowCommands.BarMouseDown}"/>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Image x:Name="ImageIcon" Source="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="0"
+                                       Width="20" Height="20" VerticalAlignment="Center" Stretch="Uniform" Margin="0">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="behaviours:MouseDownCommandBehavior.Command" Value="{x:Static commands:WindowCommands.IconMouseDown}"/>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock x:Name="TextBlockTitle" Text="{TemplateBinding Property=Title}" Grid.Column="1" Margin="0, 0, 8, 0"
+                                           TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                           Foreground="{TemplateBinding TitleBarForeground}" VerticalAlignment="Center"
+                                           FontFamily="Segoe UI" FontSize="{TemplateBinding TitleBarFontSize}" FontStretch="Normal" FontWeight="Regular"
+                                           SnapsToDevicePixels="True"/>
+                            </Grid>
+
+                            <StackPanel x:Name="PanelButtons" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" SnapsToDevicePixels="True">
+                                <Button x:Name="minButton" Background="{Binding TitleBarBackground, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Command="commands:WindowCommands.MinimizeWindow">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=ResizeMode}" Value="NoResize">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                    <TextBlock SnapsToDevicePixels="True">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="&#xE921;"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Minimized">
+                                                        <Setter Property="Text" Value="&#xE923;"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Button>
+                                <Button x:Name="maxButton" Background="{Binding TitleBarBackground, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                            <Setter Property="Command" Value="commands:WindowCommands.MaximizeWindow"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=ResizeMode}" Value="NoResize">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=ResizeMode}" Value="CanMinimize">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                                                    <Setter Property="Command" Value="commands:WindowCommands.NormalizeWindow"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                    <TextBlock SnapsToDevicePixels="True">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="&#xE922;"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                                                        <Setter Property="Text" Value="&#xE923;"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Button>
+                                <Button x:Name="closeButton" Style="{StaticResource closeButtonStyle}"
+                                            Background="{Binding TitleBarBackground, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Command="ApplicationCommands.Close">
+                                    <TextBlock Text="&#xE8BB;" SnapsToDevicePixels="True"/>
+                                </Button>
+                            </StackPanel>
+
+                            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}">
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

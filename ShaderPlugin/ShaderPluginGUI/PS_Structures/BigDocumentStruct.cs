@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace PS_Structures
+namespace ShaderPlugin.PS_Structures
 {
     //Size 92
     [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 92)]

@@ -1,0 +1,112 @@
+﻿<Popup x:Class="ShaderPluginGUI.Controls.PixelInfoPopup"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+       xmlns:local="clr-namespace:ShaderPluginGUI.Controls"
+       mc:Ignorable="d" OpacityMask="#CC000000" Placement="Relative" AllowsTransparency="True">
+
+    <Popup.Resources>
+        <d:ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/PixelInfoPopupStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </d:ResourceDictionary>
+    </Popup.Resources>
+
+    <StackPanel Orientation="Horizontal" Background="#FF454545">
+        <StackPanel Orientation="Vertical" Margin="8, 8, 4, 8">
+            <Label Style="{DynamicResource PixelInfo_LabelHeader}">Color Info:</Label>
+            <Border BorderThickness="1.0" Style="{DynamicResource PixelInfo_TableBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" MinWidth="15"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="50*" MinWidth="90"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="50*" MinWidth="50"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_TableHeaderBackgroundBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Fill="{DynamicResource PixelInfo_TableHeaderBackgroundBrush}"/>
+
+                    <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="9" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Grid.RowSpan="9" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">R</Label>
+                    <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">G</Label>
+                    <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">B</Label>
+                    <Label Grid.Row="8" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">A</Label>
+
+                    <Label Grid.Row="0" Grid.Column="2" Style="{DynamicResource PixelInfo_ColumnLabel}">[0..1]</Label>
+                    <TextBlock x:Name="textBlock_ColorFloat_R" Grid.Row="2" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">0.0</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorFloat_G" Grid.Row="4" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">1.0</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorFloat_B" Grid.Row="6" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">0.04</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorFloat_A" Grid.Row="8" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">0.00254</TextBlock>
+
+                    <Label Grid.Row="0" Grid.Column="4" Style="{DynamicResource PixelInfo_ColumnLabel}">[0..255]</Label>
+                    <TextBlock x:Name="textBlock_ColorByte_R" Grid.Row="2" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">10</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorByte_G" Grid.Row="4" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">0</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorByte_B" Grid.Row="6" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">127</TextBlock>
+                    <TextBlock x:Name="textBlock_ColorByte_A" Grid.Row="8" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">255</TextBlock>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Margin="4, 8, 8, 8">
+            <Label Style="{DynamicResource PixelInfo_LabelHeader}">Pixel Coords:</Label>
+            <Border BorderThickness="1.0" Style="{DynamicResource PixelInfo_TableBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" MinWidth="15"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="50*" MinWidth="80"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="50*" MinWidth="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_TableHeaderBackgroundBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Fill="{DynamicResource PixelInfo_TableHeaderBackgroundBrush}"/>
+
+                    <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Fill="{DynamicResource PixelInfo_CellBorderColorBrush}"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">Pixel</Label>
+                    <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource PixelInfo_RowLabel}">UV</Label>
+
+                    <Label Grid.Row="0" Grid.Column="2" Style="{DynamicResource PixelInfo_ColumnLabel}">X</Label>
+                    <TextBlock x:Name="textBlock_Pixel_X" Grid.Row="2" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">100</TextBlock>
+                    <TextBlock x:Name="textBlock_Pixel_Y" Grid.Row="2" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">1234</TextBlock>
+
+                    <Label Grid.Row="0" Grid.Column="4" Style="{DynamicResource PixelInfo_ColumnLabel}">Y</Label>
+                    <TextBlock x:Name="textBlock_UV_X" Grid.Row="4" Grid.Column="2" Style="{DynamicResource PixelInfo_CellTextBlock}">0.5</TextBlock>
+                    <TextBlock x:Name="textBlock_UV_Y" Grid.Row="4" Grid.Column="4" Style="{DynamicResource PixelInfo_CellTextBlock}">0.123145</TextBlock>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</Popup>

@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ShaderPluginGUI.Controls.BufferConfigControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShaderPluginGUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="600"
+             Background="{DynamicResource BackgroundBrushNormal}">
+
+    <UserControl.Resources>
+        <d:ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Theme.xaml"/>
+                <ResourceDictionary Source="/Styles/GroupBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/LabelStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ComboBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </d:ResourceDictionary>
+    </UserControl.Resources>
+
+    <GroupBox Name="groupBox_Header" Header="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl}, FallbackValue='Header Title'}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Magnification Filter:</Label>
+            <ComboBox Name="comboBox_MagFilter" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"
+                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TextureMagFilter, Mode=TwoWay}"
+                      ToolTip="Magnification Filter for bounded Texture."
+                      SelectionChanged="ComboBox_TextureMagFilter_Changed"/>
+
+            <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Minification Filter:</Label>
+            <ComboBox Name="comboBox_MinFilter" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"
+                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TextureMinFilter, Mode=TwoWay}"
+                      ToolTip="Minification Filter for bounded texture (include MipMaps items, but allowed only of available)."
+                      SelectionChanged="ComboBox_TextureMinFilter_Changed"/>
+
+            <Label Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Texture Wpar S:</Label>
+            <ComboBox Name="comboBox_WrapS" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"
+                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TextureWrapS, Mode=TwoWay}"
+                      ToolTip="Horizontal Wrap mode for bounded texture."
+                      SelectionChanged="ComboBox_TextureWrapS_Changed"/>
+
+            <Label Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Texture Wpar T:</Label>
+            <ComboBox Name="comboBox_WrapT" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"
+                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TextureWrapT, Mode=TwoWay}"
+                      ToolTip="Vertical Wrap mode for bounded texture."
+                      SelectionChanged="ComboBox_TextureWrapT_Changed"/>
+        </Grid>
+    </GroupBox>
+</UserControl>

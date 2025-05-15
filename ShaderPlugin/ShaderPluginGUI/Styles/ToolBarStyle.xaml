@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:ShaderPluginGUI">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Theme.xaml"/>
+        <ResourceDictionary Source="/Styles/Theme.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <LinearGradientBrush x:Key="BrushToolBarMouseOver" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -19,9 +19,8 @@
     </LinearGradientBrush>
 
     <Style x:Key="{x:Static ToolBar.SeparatorStyleKey}" TargetType="Separator">
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrushSelected}"/>
+        <Setter Property="Background" Value="#FF5D5D5D"/>
     </Style>
-
 
     <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" >
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -38,12 +37,12 @@
                             <Setter Property="Height" Value="{StaticResource ImageBtnDefSize}"/>
                         </Style>
                     </ControlTemplate.Resources>
-                    <Grid x:Name="grid">
+                    <!--Grid must have some Background color for Mouse handling events by Button!-->
+                    <Grid x:Name="grid" Background="Transparent">
                         <Border x:Name="border" CornerRadius="0" BorderBrush="{DynamicResource BorderBrushNormal}">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          TextElement.FontWeight="{TemplateBinding FontWeight}"
-                                          />
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              TextElement.FontWeight="{TemplateBinding FontWeight}"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -73,16 +72,13 @@
         </Setter>
     </Style>
 
-
-
-    <Style x:Key="ToolBarOverflowButtonStyle"
-       TargetType="{x:Type ToggleButton}">
+    <Style x:Key="ToolBarOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border x:Name="Border" SnapsToDevicePixels="true"
-                Background="{DynamicResource BackgroundBrushNormal}">
+                            Background="{DynamicResource BackgroundBrushNormal}">
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -92,9 +88,8 @@
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                         Value="{x:Static Visibility.Collapsed}" />
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -102,10 +97,10 @@
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Path x:Name="Arrow"
-                  Fill="{DynamicResource ForegroundBrush}"
-                  VerticalAlignment="Bottom"
-                  Margin="2,3"
-                  Data="M -0.5 3 L 5.5 3 L 2.5 6 Z" />
+                                  Fill="{DynamicResource ForegroundBrush}"
+                                  VerticalAlignment="Bottom"
+                                  Margin="2,3"
+                                  Data="M -0.5 3 L 5.5 3 L 2.5 6 Z" />
                             <ContentPresenter />
                         </Grid>
                     </Border>
@@ -139,30 +134,28 @@
                     <Border x:Name="Border" Background="{DynamicResource BackgroundBrushNormal}">
                         <DockPanel>
                             <ToggleButton DockPanel.Dock="Right"
-                          IsEnabled="{TemplateBinding HasOverflowItems}"
-                          Style="{DynamicResource ToolBarOverflowButtonStyle}"
-                          ClickMode="Press"
-                          IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, 
-              RelativeSource={RelativeSource TemplatedParent}}">
+                                          IsEnabled="{TemplateBinding HasOverflowItems}"
+                                          Style="{DynamicResource ToolBarOverflowButtonStyle}"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Popup x:Name="OverflowPopup"
-                     AllowsTransparency="true"
-                     Placement="Bottom"
-                     StaysOpen="false"
-                     Focusable="false"
-                     PopupAnimation="Slide"
-                     IsOpen="{Binding IsOverflowOpen, 
-                RelativeSource={RelativeSource TemplatedParent}}">
+                                       AllowsTransparency="true"
+                                       Placement="Bottom"
+                                       StaysOpen="false"
+                                       Focusable="false"
+                                       PopupAnimation="Slide"
+                                       IsOpen="{Binding IsOverflowOpen, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Border x:Name="DropDownBorder"
-                                        BorderThickness="1"
-                                        Background="{DynamicResource BackgroundBrushNormal}"
-                                        BorderBrush="{DynamicResource BorderBrushNormal}">
+                                            BorderThickness="1"
+                                            Background="{DynamicResource BackgroundBrushNormal}"
+                                            BorderBrush="{DynamicResource BorderBrushNormal}">
                                         <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel"
-                                        Margin="2"
-                                        WrapWidth="200"
-                                        Focusable="true"
-                                        FocusVisualStyle="{x:Null}"
-                                        KeyboardNavigation.TabNavigation="Cycle"
-                                        KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                                              Margin="2"
+                                                              WrapWidth="200"
+                                                              Focusable="true"
+                                                              FocusVisualStyle="{x:Null}"
+                                                              KeyboardNavigation.TabNavigation="Cycle"
+                                                              KeyboardNavigation.DirectionalNavigation="Cycle" />
                                     </Border>
                                 </Popup>
                             </ToggleButton>
@@ -182,6 +175,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 </ResourceDictionary>

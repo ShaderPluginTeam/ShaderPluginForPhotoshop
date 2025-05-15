@@ -1,0 +1,62 @@
+﻿<local:DarkWindow  x:Class="AvalonEditExtensions.GoToLineWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:local="clr-namespace:ShaderPluginGUI"
+                   mc:Ignorable="d"
+                   MinWidth="250" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+                   ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+                   Title="Go To Line" Icon="/Resources/WindowIcon.ico"
+                   Background="{DynamicResource WindowBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}"
+                   FocusManager.FocusedElement="{Binding ElementName=textBoxLineNumber}"
+                   KeyDown="Window_KeyDown" Closed="Window_Closed" FontFamily="Tahoma" FontSize="13">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Theme.xaml"/>
+                <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/WindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="#252525" BorderThickness="0, 1, 0, 0">
+        <StackPanel Orientation="Vertical" Margin="8">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="textBlockLineNumber" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right">
+                    Line Number (1 - <Run x:Name="runLastLineNum" d:Text="42"/>):
+                </TextBlock>
+
+                <TextBox x:Name="textBoxLineNumber" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         d:Text="42" FontSize="14" MinWidth="100" MinHeight="22" Margin="5, 0, 0, 0" TabIndex="0"
+                         TextChanged="TextBoxLineNumber_TextChanged"
+                         PreviewTextInput="TextBoxLineNumber_PreviewTextInput"
+                         DataObject.Pasting="TextBoxLineNumber_Pasting"/>
+            </Grid>
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="buttonOK" Grid.Column="0" Style="{StaticResource Button.RoundCornerSmall}"
+                        Content="OK" IsDefault="True" IsEnabled="False" TabIndex="1"
+                        Click="ButtonOK_Click"/>
+
+                <Button x:Name="buttonCancel" Grid.Column="2" Style="{StaticResource Button.RoundCorner}"
+                        Content="Cancel" IsCancel="True" TabIndex="2"
+                        Click="ButtonCancel_Click"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</local:DarkWindow>

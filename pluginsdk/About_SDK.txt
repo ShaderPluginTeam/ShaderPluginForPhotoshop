@@ -1,0 +1,11 @@
+1. Download "Photoshop Plug-In and Connection SDK" for Windows:
+https://developer.adobe.com/console/servicesandapis/ps
+
+Select App version: "2024", Download version: "v1-Oct-2023 - Oct 2023".
+
+2. Unpack downloaded archive ("adobe_photoshop_sdk_2024_win_v1.zip") here.
+
+This folder structure must be next(documentation no needed):
+pluginsdk
+├─photoshopapi
+└─samplecode
