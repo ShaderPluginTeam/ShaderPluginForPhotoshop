@@ -74,7 +74,7 @@ namespace ResourcesPatchTool
 
                     Console.Clear();
                     Console.WriteLine("Generate Resource file:");
-                    string ResPatchStr = File.ReadAllText(ResPatchFile, Encoding.UTF8);
+                    string ResPatchStr = File.ReadAllText(ResPatchFile, Encoding.UTF8).Replace("\r\n", "\n");
                     if (!ApplyPatch(SDKResourceStr, ResPatchStr, out string PatchedText))
                     {
                         Console.WriteLine("Can't apply patch to \"NearestBase.r\"!");
