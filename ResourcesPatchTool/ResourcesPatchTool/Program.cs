@@ -97,7 +97,7 @@ namespace ResourcesPatchTool
                         }
                     }
 
-                    File.WriteAllText(ResourceFile, PatchedText);
+                    File.WriteAllText(ResourceFile, PatchedText, Encoding.UTF8);
                     Console.WriteLine("\"ShaderPlugin.r\" successfully created.");
                     Console.WriteLine("Press any key to exit...");
                     Console.ReadKey();
@@ -126,7 +126,7 @@ namespace ResourcesPatchTool
                         }
                     }
 
-                    File.WriteAllText(ResPatchFile, PatchStr);
+                    File.WriteAllText(ResPatchFile, PatchStr, Encoding.UTF8);
                     Console.WriteLine("\"ShaderPlugin.r_patch\" successfully created.");
                     Console.WriteLine("Press any key to exit...");
                     Console.ReadKey();

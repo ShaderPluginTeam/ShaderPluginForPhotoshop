@@ -1,4 +1,4 @@
-@@ -611,471 +611,22 @@
+﻿@@ -611,471 +611,22 @@
  //%09%09
 -NearestBase.r%0d%0a//%0d%0a//%09Description:%0d%0a//%09%09This file contains the resource text%0d%0a//%09%09for the Color Picker example module NearestBase.%0d%0a//%0d%0a//%09Use:%0d%0a//%09%09NearestBase provides another color picker (available%0d%0a//%09%09from File: Preferences: General) that cycles through%0d%0a//%09%09four primary colors.  Once selected, clicking any%0d%0a//%09%09location that normally pops a picker (such as the%0d%0a//%09%09foreground or background color) will automatically%0d%0a//%09%09cycle to the next primary color.
 +ShaderPlugin.r
